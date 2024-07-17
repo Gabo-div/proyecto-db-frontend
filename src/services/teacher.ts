@@ -30,3 +30,36 @@ export const getTeacherById = async (id: number) => {
     return null;
   }
 };
+
+export const createTeacher = async (data: {
+  username: string;
+  password: string;
+  ic: string;
+  name: string;
+  last_name: string;
+}) => {
+  try {
+    await axiosInstance.post("/teachers", data);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const updateTeacherById = async (
+  id: number,
+  data: {
+    ic: string;
+    name: string;
+    last_name: string;
+  },
+) => {
+  try {
+    await axiosInstance.put(`/teachers/${id}`, data);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};

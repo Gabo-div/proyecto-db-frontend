@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { ModeToggle } from "@/components/ModeToggle";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
           <div className="fixed bottom-4 right-4">
             <ModeToggle />
           </div>
+          <Toaster />
         </Providers>
       </body>
     </html>

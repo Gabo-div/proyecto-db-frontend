@@ -6,6 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import CreateTeacherDialog from "@/layouts/CreateTeacherDialog";
+import UpdateTeacherDialog from "@/layouts/UpdateTeacherDialog";
 import { getAllTeachers } from "@/services/teacher";
 
 export default async function Docentes() {
@@ -13,7 +15,10 @@ export default async function Docentes() {
 
   return (
     <div>
-      <h1 className="mb-4 text-xl font-bold">Docentes</h1>
+      <div className="mb-4 flex items-center space-x-2">
+        <h1 className="text-xl font-bold">Docentes</h1>
+        <CreateTeacherDialog />
+      </div>
 
       <div className="rounded-md border bg-white dark:bg-zinc-900">
         <Table>
@@ -24,6 +29,7 @@ export default async function Docentes() {
               <TableHead>Nombre</TableHead>
               <TableHead>Apellido</TableHead>
               <TableHead>Cedula</TableHead>
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -34,6 +40,9 @@ export default async function Docentes() {
                 <TableCell>{teacher.name}</TableCell>
                 <TableCell>{teacher.last_name}</TableCell>
                 <TableCell>{teacher.ic}</TableCell>
+                <TableCell>
+                  <UpdateTeacherDialog teacher={teacher} />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

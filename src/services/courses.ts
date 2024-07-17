@@ -10,3 +10,26 @@ export const getAllCourses = async () => {
     return [];
   }
 };
+
+export const createCourse = async (data: { name: string; year: number }) => {
+  try {
+    await axiosInstance.post("/courses", data);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const updateCourseById = async (
+  id: number,
+  data: { name: string; year: number },
+) => {
+  try {
+    await axiosInstance.put(`/courses/${id}`, data);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};

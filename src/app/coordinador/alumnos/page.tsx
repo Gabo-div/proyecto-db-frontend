@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { getAllStudents } from "@/services/students";
+import CreateStudentDialog from "@/layouts/CreateStudentDialog";
+import UpdateStudentDialog from "@/layouts/UpdateStudentDialog";
 
 export default async function Alumnos() {
   const students = await getAllStudents();
@@ -18,7 +20,10 @@ export default async function Alumnos() {
 
   return (
     <div>
-      <h1 className="mb-4 text-xl font-bold">Alumnos</h1>
+      <div className="mb-4 flex items-center space-x-2">
+        <h1 className="text-xl font-bold">Alumnos</h1>
+        <CreateStudentDialog />
+      </div>
 
       <div className="rounded-md border bg-white dark:bg-zinc-900">
         <Table>
@@ -30,6 +35,7 @@ export default async function Alumnos() {
               <TableHead>Cedula</TableHead>
               <TableHead>Año Actual</TableHead>
               <TableHead>Estatus</TableHead>
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -56,6 +62,9 @@ export default async function Alumnos() {
                       Completado
                     </Badge>
                   ) : null}
+                </TableCell>
+                <TableCell>
+                  <UpdateStudentDialog student={student} />
                 </TableCell>
               </TableRow>
             ))}

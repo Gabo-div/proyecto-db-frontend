@@ -87,3 +87,36 @@ export const getCurrentRepresentativeStudentQualifications = async (
     return [];
   }
 };
+
+export const createRepresentative = async (data: {
+  username: string;
+  password: string;
+  ic: string;
+  name: string;
+  last_name: string;
+}) => {
+  try {
+    await axiosInstance.post("/representatives", data);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const updateRepresentativeById = async (
+  id: number,
+  data: {
+    ic: string;
+    name: string;
+    last_name: string;
+  },
+) => {
+  try {
+    await axiosInstance.put(`/representatives/${id}`, data);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};

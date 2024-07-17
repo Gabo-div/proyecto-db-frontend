@@ -21,7 +21,7 @@ export default async function Layout({
 
   return (
     <div>
-      <div className="fixed flex w-full flex-col bg-astronaut-900 dark:bg-zinc-900">
+      <div className="fixed z-10 flex w-full flex-col bg-astronaut-900 dark:bg-zinc-900">
         <div className="flex items-center px-4 py-2">
           <Image
             src={logo}

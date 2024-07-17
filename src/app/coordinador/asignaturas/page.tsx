@@ -6,6 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import CreateCourseDialog from "@/layouts/CreateCourseDialog";
+import UpdateCourseDialog from "@/layouts/UpdateCourseDialog";
 import { getAllCourses } from "@/services/courses";
 
 export default async function Asignaturas() {
@@ -15,7 +17,10 @@ export default async function Asignaturas() {
 
   return (
     <div>
-      <h1 className="mb-4 text-xl font-bold">Asignaturas</h1>
+      <div className="mb-4 flex items-center space-x-2">
+        <h1 className="text-xl font-bold">Asignaturas</h1>
+        <CreateCourseDialog />
+      </div>
 
       <div className="rounded-md border bg-white dark:bg-zinc-900">
         <Table>
@@ -33,7 +38,9 @@ export default async function Asignaturas() {
                 <TableCell>{course.id}</TableCell>
                 <TableCell>{course.name}</TableCell>
                 <TableCell>{course.year}</TableCell>
-                <TableCell></TableCell>
+                <TableCell>
+                  <UpdateCourseDialog course={course} />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

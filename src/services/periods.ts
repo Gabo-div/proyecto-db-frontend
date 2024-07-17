@@ -10,3 +10,35 @@ export const getAllPeriods = async () => {
     return [];
   }
 };
+
+export const createPeriod = async ({
+  start_date,
+  end_date,
+}: {
+  start_date: string;
+  end_date: string;
+}) => {
+  try {
+    await axiosInstance.post("/periods", {
+      start_date,
+      end_date,
+    });
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const updatePeriodById = async (
+  id: number,
+  data: { start_date: string; end_date: string },
+) => {
+  try {
+    await axiosInstance.put(`/periods/${id}`, data);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
