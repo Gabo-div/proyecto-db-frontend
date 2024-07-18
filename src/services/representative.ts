@@ -120,3 +120,50 @@ export const updateRepresentativeById = async (
     return false;
   }
 };
+
+export const getRepresentativeById = async (id: number) => {
+  try {
+    const response = await axiosInstance.get(`/representatives/${id}`);
+
+    return representativeSchema.parse(response.data);
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getRepresentativeStudentsById = async (id: number) => {
+  try {
+    const response = await axiosInstance.get(`/representatives/${id}/students`);
+
+    return studentSchema.array().parse(response.data);
+  } catch (error) {
+    return [];
+  }
+};
+
+export const addRepresentativeStudent = async (
+  id: number,
+  data: {
+    student_ic: string;
+  },
+) => {
+  try {
+    await axiosInstance.post(`/representatives/${id}/students`, {
+      ic: data.student_ic,
+    });
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const deleteRepresentativeById = async (id: number) => {
+  try {
+    await axiosInstance.delete(`/representatives/${id}`);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};

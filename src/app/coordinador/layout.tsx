@@ -50,6 +50,7 @@ export default async function Layout({
               { name: "Docentes", href: "/docentes" },
               { name: "Representantes", href: "/representantes" },
               { name: "Alumnos", href: "/alumnos" },
+              { name: "Cambiar Contraseña", href: "/password" },
             ]}
           />
           <ScrollBar orientation="horizontal" />
@@ -58,7 +59,17 @@ export default async function Layout({
 
       <div className="min-h-screen bg-astronaut-100 dark:bg-zinc-950">
         <div className="pt-[110px]"></div>
-        <div className="container mx-auto px-4 py-8">{children}</div>
+        <div className="container mx-auto px-4 py-8">
+          {coordinator.withdraw_date ? (
+            <div>
+              <h1 className="text-center text-lg font-medium">
+                Usted es un coordinador retirado.
+              </h1>
+            </div>
+          ) : (
+            children
+          )}
+        </div>
       </div>
     </div>
   );

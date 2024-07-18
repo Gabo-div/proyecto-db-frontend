@@ -1,6 +1,11 @@
 "use server";
 
-import { createTeacher, updateTeacherById } from "@/services/teacher";
+import {
+  addChargeQualification,
+  addTeacherCharge,
+  createTeacher,
+  updateTeacherById,
+} from "@/services/teacher";
 import { revalidatePath } from "next/cache";
 
 export const createTeacherAction = async (data: {
@@ -28,6 +33,37 @@ export const updateTeacherAction = async (
   const result = await updateTeacherById(id, data);
 
   revalidatePath("/coordinador/docentes");
+
+  return result;
+};
+
+export const addTeacherChargeAction = async (
+  id: number,
+  data: {
+    section: number;
+    period_id: number;
+    course_id: number;
+    teacher_id: number;
+  },
+) => {
+  const result = await addTeacherCharge(id, data);
+
+  revalidatePath("/coordinador/docentes");
+
+  return result;
+};
+
+export const addChargeQualificationAction = async (
+  id: number,
+  data: {
+    value: number;
+    lapse: number;
+    student_id: number;
+  },
+) => {
+  const result = await addChargeQualification(id, data);
+
+  revalidatePath("/docente/asignaturas");
 
   return result;
 };

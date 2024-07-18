@@ -11,6 +11,7 @@ export const qualificationSchema = z.object({
   course_name: z.string(),
   course_year: z.number(),
   teacher_name: z.string(),
+  student_id: z.number(),
 });
 
 export type Qualification = z.infer<typeof qualificationSchema>;

@@ -7,25 +7,48 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { getAllStudents } from "@/services/students";
-import CreateStudentDialog from "@/layouts/CreateStudentDialog";
 import UpdateStudentDialog from "@/layouts/UpdateStudentDialog";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Eye } from "lucide-react";
 
-export default async function Alumnos() {
-  const students = await getAllStudents();
+import {
+  getRepresentativeById,
+  getRepresentativeStudentsById,
+} from "@/services/representative";
+import RepresentativeStudentDialog from "@/layouts/RepresentativeStudentDialog";
+
+export default async function Representante({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const id = parseInt(params.id);
+  const representative = await getRepresentativeById(id);
+  const students = await getRepresentativeStudentsById(id);
 
   const sortedStudents = students.sort(
     (a, b) => a.current_year - b.current_year,
   );
 
+  if (!representative) {
+    return <div>Representante no encontrado</div>;
+  }
+
   return (
     <div>
+      <h1 className="mb-4 text-center text-2xl font-medium">Representante</h1>
+
+      <div className="mb-4 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <p>
+          <span className="font-medium">Nombre:</span>{" "}
+          {representative.name + " " + representative.last_name}
+        </p>
+        <p>
+          <span className="font-medium">Cedula:</span> {representative.ic}
+        </p>
+      </div>
+
       <div className="mb-4 flex items-center space-x-2">
-        <h1 className="text-xl font-bold">Alumnos</h1>
-        <CreateStudentDialog />
+        <h2 className="text-xl font-medium">Representados</h2>
+        <RepresentativeStudentDialog representative={representative} />
       </div>
 
       <div className="rounded-md border bg-white dark:bg-zinc-900">
@@ -67,16 +90,6 @@ export default async function Alumnos() {
                   ) : null}
                 </TableCell>
                 <TableCell>
-                  <Button
-                    asChild
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8"
-                  >
-                    <Link href={`/coordinador/alumnos/${student.id}`}>
-                      <Eye className="h-4 w-4" />
-                    </Link>
-                  </Button>
                   <UpdateStudentDialog student={student} />
                 </TableCell>
               </TableRow>

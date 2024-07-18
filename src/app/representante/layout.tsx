@@ -43,6 +43,7 @@ export default async function Layout({
           links={[
             { name: "Inicio", href: "/" },
             { name: "Representados", href: "/representados" },
+            { name: "Cambiar Contraseña", href: "/password" },
           ]}
         />
       </div>

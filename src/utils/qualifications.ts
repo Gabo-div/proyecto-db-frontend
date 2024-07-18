@@ -11,6 +11,60 @@ type CourseQualifications = {
   final: number | null;
 };
 
+type StudentQualifications = {
+  student_name: string;
+  student_id: number;
+  lapses: [number | null, number | null, number | null];
+  final: number | null;
+};
+
+export const groupQualificatinsByStudent = (
+  qualifications: (Qualification & { student_name: string })[],
+): StudentQualifications[] => {
+  const grouped: StudentQualifications[] = [];
+
+  for (const qualification of qualifications) {
+    const existing = grouped.findIndex(
+      (q) => q.student_name === qualification.student_name,
+    );
+
+    if (existing === -1) {
+      const index = qualification.lapse - 1;
+      const lapses: [number | null, number | null, number | null] = [
+        null,
+        null,
+        null,
+      ];
+
+      lapses[index] = qualification.value;
+
+      grouped.push({
+        student_id: qualification.student_id,
+        student_name: qualification.student_name,
+        lapses,
+        final: qualification.lapse === 3 ? qualification.value : null,
+      });
+
+      continue;
+    }
+
+    const index = qualification.lapse - 1;
+    const lapses = grouped[existing].lapses;
+    lapses[index] = qualification.value;
+
+    grouped[existing].lapses = lapses;
+    const lapse1 = grouped[existing].lapses[0];
+    const lapse2 = grouped[existing].lapses[1];
+    const lapse3 = grouped[existing].lapses[2];
+
+    if (lapse1 && lapse2 && lapse3) {
+      grouped[existing].final = (lapse1 + lapse2 + lapse3) / 3;
+    }
+  }
+
+  return grouped;
+};
+
 export const groupQualifications = (
   qualifications: Qualification[],
 ): YearQualifications => {

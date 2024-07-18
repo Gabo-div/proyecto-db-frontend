@@ -1,7 +1,9 @@
 "use server";
 
 import {
+  addRepresentativeStudent,
   createRepresentative,
+  deleteRepresentativeById,
   updateRepresentativeById,
 } from "@/services/representative";
 import { revalidatePath } from "next/cache";
@@ -29,6 +31,27 @@ export const updateRepresentativeAction = async (
   },
 ) => {
   const result = await updateRepresentativeById(id, data);
+
+  revalidatePath("/coordinador/representantes");
+
+  return result;
+};
+
+export const addRepresentativeStudentAction = async (
+  id: number,
+  data: {
+    student_ic: string;
+  },
+) => {
+  const result = await addRepresentativeStudent(id, data);
+
+  revalidatePath("/coordinador/representantes");
+
+  return result;
+};
+
+export const deleteRepresentativeAction = async (id: number) => {
+  const result = await deleteRepresentativeById(id);
 
   revalidatePath("/coordinador/representantes");
 
