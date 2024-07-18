@@ -131,7 +131,9 @@ export default async function Alumno({ params }: { params: { id: string } }) {
                           <TableCell>{lapses[0] || "-"}</TableCell>
                           <TableCell>{lapses[1] || "-"}</TableCell>
                           <TableCell>{lapses[2] || "-"}</TableCell>
-                          <TableCell>{final || "-"}</TableCell>
+                          <TableCell>
+                            {final ? final.toFixed(0) : "-"}
+                          </TableCell>
                         </TableRow>
                       );
                     })}

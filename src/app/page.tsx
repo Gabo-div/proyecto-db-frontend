@@ -28,14 +28,6 @@ export default function Home() {
           </p>
 
           <LoginForm />
-
-          <p className="mt-4 text-sm">
-            Si usted es un representante primero debe{" "}
-            <Link href="/register" className="text-blue-500">
-              registrarse
-            </Link>{" "}
-            para poder ingresar.
-          </p>
         </Card>
       </main>
     </div>

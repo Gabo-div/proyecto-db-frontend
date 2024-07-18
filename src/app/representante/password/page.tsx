@@ -11,7 +11,7 @@ export default async function Password() {
   return (
     <div>
       <div className="mb-4 flex items-center space-x-2">
-        <h1 className="text-xl font-bold">Asignaturas</h1>
+        <h1 className="text-xl font-bold">Cambiar contraseña</h1>
       </div>
       <ChangePasswordForm userId={representative.user_id} />
     </div>
